@@ -20,7 +20,7 @@ v1.string();
 */
 // Part Two
 
-class car extends Vehicle {
+class Car extends Vehicle {
   constructor(make,model,year){
     super(make,model,year)
     this.numWheels=4;
@@ -34,7 +34,7 @@ myFirstCar.numWheels;  // 4 */
 
 //Part Three
 
-class motorcycle extends Vehicle{
+class Motorcycle extends Vehicle{
   constructor(make,model,year){
     super(make,model,year)
     this.numWheels=2;
@@ -63,8 +63,12 @@ class Garage{
   }  
   add(vehicle){
     if(!(vehicle instanceof Vehicle)){
-      throw new Error('Only vehicles are allowed in here! ');      
+      return new Error('Only vehicles are allowed in here! ');      
     } 
+    if(this.vehicles.length >= this.capacity){
+     return 'Sorry we are full'; 
+    }
+    
     this.vehicles.push(vehicle);
     console.log('Vehicle added!')
   }
@@ -72,6 +76,17 @@ class Garage{
 
 let garage = new Garage(2);
 garage.vehicles; // []
-garage.add(new car("Hyundai", "Elantra", 2015)); // "Vehicle added!"
+garage.add(new Car("Hyundai", "Elantra", 2015)); // "Vehicle added!"
 garage.vehicles; // [Car]
 garage.add("Taco"); // "Only vehicles are allowed in here!"
+console.log('Motorcycle')
+garage.add(new Motorcycle("Honda", "Nighthawk", 2000));
+// "Vehicle added!"
+garage.vehicles; // [Car, Motorcycle]
+
+garage.add(new Motorcycle("Honda", "Nighthawk", 2001));
+// "Sorry, we're full."
+
+garage.vehicles;
+
+
